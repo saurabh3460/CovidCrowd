@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  covidcrowd:
+    image: covidcrowd
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes: 
+      - .:/app
+    ports:
+      - 8000:8000
+    # network_mode: bridge

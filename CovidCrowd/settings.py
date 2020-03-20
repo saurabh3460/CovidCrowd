@@ -135,9 +135,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Crispy forms
+# Crispy forms 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+ 
 # OAUTH for Social Login
 LOGIN_URL = "/login-form"
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
