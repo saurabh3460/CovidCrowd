@@ -56,13 +56,13 @@
   </div>
   <div class="row">
     <div class="col-3">
-      <a href="#" class="btn btn-primary">Add New Patient </a>
+      <a href="{% url "patients:add-patient" %}" class="btn btn-primary">Add New Patient </a>
     </div>
     <div class="col-3">
       <a href="#" class="btn btn-info">Mark as duplicate</a>
     </div>
     <div class="col-6">
-      <a href="#" class="btn btn-danger">Insufficient Information</a>
+      <a href="{% url "patients:report-invalid" %}" class="btn btn-danger">Insufficient Information</a>
     </div>
   </div>
 {% endblock %}

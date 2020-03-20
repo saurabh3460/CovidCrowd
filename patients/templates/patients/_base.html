@@ -9,20 +9,37 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'patients/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'patients/css/argon-design-system.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'patients/css/font-awesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'patients/css/app.css' %}" />
 
     <title>Covid-19 India - CovidCrowd</title>
   </head>
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Covid-19 India</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="{% url "patients:index" %}">Covid-19 India</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-primary">
+        <i class="fa fa-bars"></i>
+      </span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="{% url 'patients:index' %}">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="{% url 'patients:report' %}">Report Patient</a>
+    <div class="collapse navbar-collapse" id="navbar-primary">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a class="navbar-brand" href="{% url "patients:index" %}">Covid-19 India</a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" href="{% url 'patients:new-report' %}">Report Incident</a>
         {% if user.is_authenticated %}
+          <a class="nav-item nav-link" href="{% url 'patients:review' %}">Review Queue</a>
           <a class="nav-item nav-link" href="{% url "patients:logout" %}">Logout</a>
         {% else %}
           <a class="nav-item nav-link" href="{% url "patients:login-form" %}">Login</a>
@@ -32,6 +49,19 @@
   </nav>
   <main>
     <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+              <small>
+                <i class="fa fa-remove"></i>
+              </small>
+            </button>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
       {% block content %}
       {% endblock %}
     </div>
@@ -41,5 +71,8 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="{% static 'patients/js/bootstrap.bundle.min.js' %}"></script>
+
+    {% block JS %}
+    {% endblock %}
   </body>
 </html>
